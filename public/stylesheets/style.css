@@ -1,0 +1,19 @@
+.thumbnail img {
+    height: 250px;
+    width: 200px;
+}
+
+.thumbnail .description {
+    color: #7f7f7f;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.product-image img {
+    height: 500px;
+    width: 500px;
+
+}
