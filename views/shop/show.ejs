@@ -1,0 +1,81 @@
+<%layout("layouts/boilerplate")%> 
+<link rel="stylesheet" href="/stylesheets/stars.css">
+<div class="row">
+  <div class="col-6">
+<div class="panel panel-default">
+    <div class="row">
+        <div class="col-md-4 ">
+            <div class="product-image">
+            <img src="<%=product.imagePath%>" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Default panel contents -->
+    <div class="panel-heading"><%=product.title%></div>
+    <div class="panel-body">
+      <p><%= product.description%></p>
+    </div>
+  
+    <!-- List group -->
+    <ul class="list-group">
+      <li class="list-group-item">$ <%=product.price%></li>
+      <li class="list-group-item"><a href="/" class="btn btn-primary">Back To Shopping list</a></li>
+      <li class="list-group-item"><a href="/products/<%=product._id%>/edit" class="btn btn-success">Update Product</a></li>
+      <li class="list-group-item">
+      <form class="d-inline" action="/products/<%=product._id%>?_method=DELETE" method="POST">
+        <button class="btn btn-danger">Delete Product </button>
+        </form>
+      </li>      
+      <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+  </div>
+</div>
+<div class="col-6">
+  <h2>Leave a Review</h2>
+  <form action="/products/<%=product._id%>/reviews" method="POST" class="mb-3" data-toggle="validator">
+   <!-- <div class="mb-3">
+    <label class="form-label" for="rating">Rating</label>
+    <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
+    </div>  -->
+    <div class="mb-3">
+    <fieldset class="starability-basic">
+      <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No review[rating]." />
+      <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+      <label for="first-rate1" title="Terrible">1 star</label>
+      <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+      <label for="first-rate2" title="Not good">2 stars</label>
+      <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+      <label for="first-rate3" title="Average">3 stars</label>
+      <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+      <label for="first-rate4" title="Very good">4 stars</label>
+      <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+      <label for="first-rate5" title="Amazing">5 stars</label>
+    </fieldset>
+  </div>
+      <div class="mb-3">
+        <label class="form-label" for="body">Review</label>
+        <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+     </div>
+     <br>
+     <button class="btn btn-success">Submit</button>
+  </form>
+  <h1>Customer feedbacks</h1>
+<div>
+  <% for(let review of product.reviews){ %>
+
+    <div class="panel panel-default"> 
+  <div class="panel-heading">Rating: <%= review.rating %></div>
+   
+  <div class="panel-body">
+    <p class="starability-result" data-rating="<%=review.rating%>"></p>
+      <p> <%= review.body %> </p>
+      <form action="/products/<%=product._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+        <button class=" btn btn-sm btn-danger">Delete</button>
+        </form>
+    </div> 
+  </div>
+   
+    <% } %> 
+</div>
+</div>
+</div>
