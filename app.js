@@ -10,6 +10,9 @@ const ExpressError = require("./utils/ExpressError")
 const LocalStrategy = require("passport-local")
 const User = require("./models/user")
 
+const MongoStore = require("connect-mongo")
+  
+
 const app = express()
 
 mongoose.connect('mongodb://localhost:27017/shopping', {
@@ -33,10 +36,22 @@ app.engine("ejs", ejsMate)
 app.set("view engine", "ejs")
 app.set("views",path.join(__dirname, "views"))
 
+
+// const sessionStore = new MongoStore({
+
+//     collection: "sessions"
+// })
 app.use(session({
     secret: "mysupersecret",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost:27017/shopping',
+        collection: "sessions"
+      }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24  
+    }
 }))
 app.use(flash())
 app.use(passport.initialize())
