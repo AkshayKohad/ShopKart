@@ -1,0 +1,32 @@
+<%layout("layouts/boilerplate")%>
+<%for(let i=0;i<user.shoppingcart.length;){%>
+    <div class="row">
+    <% var j=i %>
+   <%for(;j<i+3 && j<user.shoppingcart.length;j++){ %>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src=<%=user.shoppingcart[j].imagePath%>  alt="...">
+          <div class="caption">
+            <h3><%=user.shoppingcart[j].title%></h3>
+            <div class="clearfix">
+            <p class="description pull-left"><%=user.shoppingcart[j].description%></p>
+            <a href="/products/<%=user.shoppingcart[j]._id%>" class="btn btn-primary pull-right">Show Product</a>
+          </div>
+          <br>
+            <div class="clearfix"> 
+              <div class="price pull-left">$<%=user.shoppingcart[j].price%> </div>
+
+            <%if(currentUser) {%> 
+                <form class="pull-right" action="/shoppingcart/<%=user.shoppingcart[j]._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Remove from Shopping Cart </button>
+                    </form>
+              <% } %> 
+            </div>
+          </div>
+        </div>
+      </div>
+     <%}%> 
+     <%i=j%> 
+      </div>
+  
+  <% } %> 

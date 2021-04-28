@@ -1,0 +1,22 @@
+<%layout("layouts/boilerplate")%> 
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h1>Sign In</h1>
+        <form action="/user/signin" method="POST" data-toggle="validator">
+            <div class="form-group">
+                <label for="username" >Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+               
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+         
+            <button type="submit" class="btn btn-primary">Sign In</button>
+           
+        </form>
+        <br><a href="/user/signup">don't have an account</a>
+    </div>
+</div>
